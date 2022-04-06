@@ -38,7 +38,7 @@ namespace Client
             e.Column.Header = getColumnName(sender as DataGrid, e.PropertyName);
         }
 
-        private void GCL_AutoGeneratingColumn(object? sender, DataGridAutoGeneratingColumnEventArgs e)
+        private void G_CL_AutoGeneratingColumn(object? sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             e.Column.Header = getColumnName(sender as DataGrid, e.PropertyName);
         }
@@ -47,8 +47,8 @@ namespace Client
         {
             DB_Clients = new ObservableCollection<DB_Client>();
             DB_Creds = new ObservableCollection<DB_Cred>();
-            gCL.Items = DB_Clients;
-            gCL.AutoGeneratingColumn += GCL_AutoGeneratingColumn;
+            G_CL.Items = DB_Clients;
+            G_CL.AutoGeneratingColumn += G_CL_AutoGeneratingColumn;
 
             G_CR.Items = DB_Creds;
             G_CR.AutoGeneratingColumn += G_CR_AutoGeneratingColumn;
@@ -78,7 +78,7 @@ namespace Client
 
         private string getColumnName(DataGrid sender, string columnName)
         {
-            if (sender == gCL)
+            if (sender == G_CL)
             {
                 switch (columnName)
                 {
