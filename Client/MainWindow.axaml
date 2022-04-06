@@ -5,5 +5,29 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="Client.MainWindow"
         Title="Client">
-    Welcome to Avalonia!
+	<DockPanel>
+		<Menu DockPanel.Dock="Top">
+			<MenuItem Header="Файл">
+				<MenuItem Name="miRelog" Header="Сменить пользователя" Click="Validate"></MenuItem>
+				<Separator/>
+				<MenuItem Name="miExit" Header="Выход" Click="Validate"></MenuItem>
+			</MenuItem>
+			<MenuItem Header="Операции">
+				<MenuItem Name="miNew" Header="Добавить" Click="Validate"></MenuItem>
+				<MenuItem Name="miEdit" Header="Изменить" Click="Validate"></MenuItem>
+				<MenuItem Name="miDelete" Header="Удалить" Click="Validate"></MenuItem>
+				<MenuItem Name="miOpenCr" Header="Открыть кредит" Click="Validate"></MenuItem>
+			</MenuItem>
+			<MenuItem Name="miAbout" Header="О программе" Click="Validate"></MenuItem>
+		</Menu>
+		<TabControl Name="TC1" >
+			<TabItem Header="Клиенты" Name="Tab1">
+				<DataGrid Name="gCL" AutoGenerateColumns="True" Items="{Binding DB_Clients}">
+				</DataGrid>
+			</TabItem>
+			<TabItem Header="Кредиты" Name="Tab2">
+				<DataGrid Name="G_CR" AutoGenerateColumns="True" Items="{Binding DB_Creds}"></DataGrid>
+			</TabItem>
+		</TabControl>
+	</DockPanel>
 </Window>

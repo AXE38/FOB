@@ -1,0 +1,20 @@
+<Window xmlns="https://github.com/avaloniaui"	
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        CanResize="False"
+        x:Class="Client.Auth"
+		Closed="OnClose"
+        Title="Auth"
+		SizeToContent="WidthAndHeight">
+	<Grid ColumnDefinitions="100,1.5*" RowDefinitions="Auto,3,Auto,3,Auto,3"  Margin="4">
+		<Label VerticalAlignment="Center" Grid.Row="0" Grid.Column="0">Логин</Label>
+		<TextBox Grid.Row="0" Grid.Column="1" Watermark="Логин"></TextBox>
+		<Label VerticalAlignment="Center" Grid.Row="2" Grid.Column="0" >Пароль</Label>
+		<TextBox Grid.Row="2" Grid.Column="1" Watermark="Пароль" PasswordChar="*" Width="200"></TextBox>
+		<WrapPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Right">
+			<Button Name="OK" Click="Validate">Ок</Button>
+			<Button Name="CANCEL" Click="Validate">Отмена</Button>
+		</WrapPanel>
+	</Grid>
+</Window>

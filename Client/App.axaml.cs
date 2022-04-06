@@ -20,5 +20,13 @@ namespace Client
 
             base.OnFrameworkInitializationCompleted();
         }
+
+        public void Exit()
+        {
+            if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+            {
+                desktop.Shutdown();
+            }
+        }
     }
 }
