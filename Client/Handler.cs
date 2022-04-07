@@ -9,7 +9,10 @@ namespace Client
 {
     internal class Handler
     {
-        
+        public static void DeleteItem(string entity_type, long id )
+        {
+
+        }
     }
 
     public class DB_Client
@@ -17,6 +20,8 @@ namespace Client
         public long id { get; set; }
         public string fullname { get; set; }
         public string pass { get; set; }
+
+        public string phone { get; set; }
 
         public DB_Client()
         {
