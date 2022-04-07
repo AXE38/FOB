@@ -5,6 +5,7 @@ using Avalonia.Markup.Xaml;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace Client
 {
@@ -61,7 +62,7 @@ namespace Client
             miOpenCr.IsVisible = Tab1.IsSelected;
         }
 
-        private void Validate(object? sender, RoutedEventArgs e)
+        private async void Validate(object? sender, RoutedEventArgs e)
         {
             var p_info = (sender as Control).Name;
             if (p_info == "miExit")
@@ -72,7 +73,11 @@ namespace Client
                 Authorize();
             } else if (p_info == "miDelete")
             {
-                
+                var m = new MsgBox("Вы уверены?");
+                if (await m.ShowDialog<string>(this) != "OK")
+                {
+                    Handler.DeleteItem(null, 0);
+                }
             }
         }
 
