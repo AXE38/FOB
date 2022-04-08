@@ -18,7 +18,7 @@ namespace Client
         public MainWindow()
         {
             InitializeComponent();
-            InitializeComponent1();
+            Init();
 #if DEBUG
             this.AttachDevTools();
 #else
@@ -44,7 +44,7 @@ namespace Client
             e.Column.Header = getColumnName(sender as DataGrid, e.PropertyName);
         }
 
-        private void InitializeComponent1()
+        private void Init()
         {
             DB_Clients = new ObservableCollection<DB_Client>();
             DB_Creds = new ObservableCollection<DB_Cred>();
@@ -55,6 +55,14 @@ namespace Client
             G_CR.AutoGeneratingColumn += G_CR_AutoGeneratingColumn;
 
             TC1.SelectionChanged += TC1_SelectionChanged;
+
+            DB_Clients.Add(new DB_Client()
+            {
+                id = 1,
+                fullname = "123",
+                pass = "1245",
+                phone = "567890"
+            });
         }
 
         private void TC1_SelectionChanged(object? sender, SelectionChangedEventArgs e)
@@ -78,6 +86,16 @@ namespace Client
                 {
                     Handler.DeleteItem(null, 0);
                 }
+            } else if (p_info == "miNew")
+            {
+                var cl = new NewClient();
+                cl.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+                cl.ShowDialog(this);
+            } else if (p_info == "miEdit")
+            {
+                var cl = new NewClient((DB_Client)gCL.SelectedItem);
+                cl.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+                cl.ShowDialog(this);
             }
         }
 

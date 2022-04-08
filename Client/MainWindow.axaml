@@ -13,7 +13,7 @@
 				<MenuItem Name="miExit" Header="Выход" Click="Validate"></MenuItem>
 			</MenuItem>
 			<MenuItem Header="Операции">
-				<MenuItem Name="miNew" Header="Добавить" Click="Validate"></MenuItem>
+				<MenuItem Name="miNew" Header="Добавить" Click="Validate" HotKey="Insert"></MenuItem>
 				<MenuItem Name="miEdit" Header="Изменить" Click="Validate"></MenuItem>
 				<MenuItem Name="miDelete" Header="Удалить" Click="Validate"></MenuItem>
 				<MenuItem Name="miOpenCr" Header="Открыть кредит" Click="Validate"></MenuItem>
