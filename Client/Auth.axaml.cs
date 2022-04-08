@@ -17,7 +17,6 @@ namespace Client
 
         public Auth(bool isValid)
         {
-            InitializeComponent();
             this.isValid = isValid;
             Validate(this, new RoutedEventArgs());
 #if DEBUG

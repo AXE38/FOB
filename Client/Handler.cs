@@ -9,9 +9,20 @@ namespace Client
 {
     internal class Handler
     {
-        public static void DeleteItem(string entity_type, long id )
+        private static List<DB_Exception> exceptions = new List<DB_Exception>();
+        public static DB_Exception DeleteItem(string entity_type, long id )
         {
+            return new DB_Exception();
+        }
 
+        public static DB_Exception AddItem(string entity_type, object obj)
+        {
+            return new DB_Exception();
+        }
+
+        public static DB_Exception EditItem(string entity_type, object obj)
+        {
+            return new DB_Exception();
         }
     }
 
@@ -44,6 +55,17 @@ namespace Client
         {
 
         }
+    }
 
+    public class DB_Exception
+    {
+        public long id { get; }
+        public string msg { get; }
+        public string code { get; }
+
+        public DB_Exception()
+        {
+
+        }
     }
 }

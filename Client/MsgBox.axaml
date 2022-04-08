@@ -2,13 +2,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" SizeToContent="WidthAndHeight"
-		MaxWidth="200"
+        mc:Ignorable="d" SizeToContent="Height"
+		Width="200"
         x:Class="Client.MsgBox"
 		CanResize="False"
         Title="MsgBox">
 	<StackPanel>
-		<TextBlock Margin="10" TextWrapping="Wrap" MaxWidth="190" Name="MsgLbl" TextAlignment="Center"></TextBlock>
+		<TextBlock Margin="10" TextWrapping="Wrap" Width="190" Name="MsgLbl" TextAlignment="Center"></TextBlock>
 		<WrapPanel HorizontalAlignment="Center">
 			<Button Name="OK" Click="Validate">Ок</Button>
 			<Button Name="CANCEL" Click="Validate">Отмена</Button>

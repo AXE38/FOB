@@ -2,16 +2,21 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d"
         x:Class="Client.NewClient"
 		CanResize="False"
-        Title="Добавить клиента">
-	<Grid ColumnDefinitions="150,1.5*" RowDefinitions="Auto,3,Auto,3,Auto,3"  Margin="4">
+        Title="Добавить клиента"
+		SizeToContent="WidthAndHeight">
+	<Grid ColumnDefinitions="150,400" RowDefinitions="Auto,3,Auto,3,Auto,3,Auto,3"  Margin="4">
 		<Label   Grid.Row="0" Grid.Column="0" VerticalAlignment="Center">ФИО</Label>
-		<TextBox Grid.Row="0" Grid.Column="1" Watermark="ФИО"></TextBox>
+		<TextBox Grid.Row="0" Grid.Column="1" Watermark="ФИО" Name="tbFullname"></TextBox>
 		<Label   Grid.Row="2" Grid.Column="0" VerticalAlignment="Center">Паспорт</Label>
-		<TextBox Grid.Row="2" Grid.Column="1" Watermark="Паспорт"></TextBox>
+		<TextBox Grid.Row="2" Grid.Column="1" Watermark="Паспорт" Name="tbPass"></TextBox>
 		<Label   Grid.Row="4" Grid.Column="0" VerticalAlignment="Center">Номер телефона</Label>
-		<TextBox Grid.Row="4" Grid.Column="1" Watermark="Номер телефона"></TextBox>
+		<TextBox Grid.Row="4" Grid.Column="1" Watermark="Номер телефона" Name="tbPhone"></TextBox>
+		<WrapPanel Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Right">
+			<Button Name="OK" Click="Validate">Ок</Button>
+			<Button Name="CANCEL" Click="Validate">Отмена</Button>
+		</WrapPanel>
 	</Grid>
 </Window>
