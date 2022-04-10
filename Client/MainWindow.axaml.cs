@@ -11,10 +11,9 @@ namespace Client
 {
     public partial class MainWindow : Window
     {
-
         public ObservableCollection<DB_Client> DB_Clients { get; set; }
         public ObservableCollection<DB_Cred> DB_Creds { get; set; }
-        private string token { get; set; } = null;
+        private string Token { get; set; } = null;
         public MainWindow()
         {
             InitializeComponent();
@@ -26,12 +25,13 @@ namespace Client
 #endif
         }
 
-        private void Authorize()
+        private async void Authorize()
         {
             this.Show();
-            Auth a = new Auth(token == null);
+            Auth a = new Auth(Token == null);
             a.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            a.ShowDialog(this);
+            object res = await a.ShowDialog<object>(this);
+            Token = (string)res;
         }
 
         private void G_CR_AutoGeneratingColumn(object? sender, DataGridAutoGeneratingColumnEventArgs e)
@@ -46,6 +46,7 @@ namespace Client
 
         private void Init()
         {
+            Handler.Init_DB_result();
             DB_Clients = new ObservableCollection<DB_Client>();
             DB_Creds = new ObservableCollection<DB_Cred>();
             gCL.Items = DB_Clients;
@@ -113,6 +114,8 @@ namespace Client
                         return "Паспортные данные";
                     case "phone":
                         return "Номер телефона";
+                    default:
+                        return columnName;
                 }
             } else if (sender == G_CR)
             {
@@ -132,9 +135,11 @@ namespace Client
                         return "Сумма";
                     case "create_date":
                         return "Дата выдачи";
+                    default:
+                        return columnName;
                 }
             }
-            throw new InvalidOperationException();
+            return null;
         }
     }
 }

@@ -1,4 +1,4 @@
-using Avalonia;
+﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
@@ -22,11 +22,6 @@ namespace Client
 #if DEBUG
             this.AttachDevTools();
 #endif
-        }
-
-        private void InitializeComponent()
-        {
-            AvaloniaXamlLoader.Load(this);
         }
 
         private void OnClose(object? sender, EventArgs e)
@@ -56,8 +51,19 @@ namespace Client
         private void Execute()
         {
             isValid = false;
-            isValid = true;
-            this.Close();
+            var result = Handler.Auth(this.login.Text, this.password.Text);
+            if (result.state == "200")
+            {
+                isValid = true;
+                this.Close(result.result);
+            }
+            else
+            {
+                var MsgBox = new MsgBox("Неправильный логин или пароль");
+                MsgBox.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+                MsgBox.ShowDialog(this);
+            }
+            
         }
     }
 }
