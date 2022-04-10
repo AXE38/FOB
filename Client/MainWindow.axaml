@@ -14,7 +14,7 @@
 			</MenuItem>
 			<MenuItem Header="Операции">
 				<MenuItem Name="miNew" Header="Добавить" Click="Validate" HotKey="Insert"></MenuItem>
-				<MenuItem Name="miEdit" Header="Изменить" Click="Validate"></MenuItem>
+				<MenuItem Name="miEdit" Header="Изменить" Click="Validate" IsEnabled="False"></MenuItem>
 				<MenuItem Name="miDelete" Header="Удалить" Click="Validate"></MenuItem>
 				<MenuItem Name="miOpenCr" Header="Открыть кредит" Click="Validate"></MenuItem>
 			</MenuItem>
@@ -22,11 +22,11 @@
 		</Menu>
 		<TabControl Name="TC1" >
 			<TabItem Header="Клиенты" Name="Tab1">
-				<DataGrid Name="gCL" AutoGenerateColumns="True" Items="{Binding DB_Clients}">
+				<DataGrid Name="gCL" AutoGenerateColumns="True" Items="{Binding DB_Clients}" IsReadOnly="True">
 				</DataGrid>
 			</TabItem>
 			<TabItem Header="Кредиты" Name="Tab2">
-				<DataGrid Name="G_CR" AutoGenerateColumns="True" Items="{Binding DB_Creds}"></DataGrid>
+				<DataGrid Name="G_CR" AutoGenerateColumns="True" Items="{Binding DB_Creds}" IsReadOnly="True"></DataGrid>
 			</TabItem>
 		</TabControl>
 	</DockPanel>

@@ -59,7 +59,7 @@ namespace Client
             }
             else
             {
-                var MsgBox = new MsgBox("Неправильный логин или пароль");
+                var MsgBox = new MsgBox(result.msg);
                 MsgBox.WindowStartupLocation = WindowStartupLocation.CenterOwner;
                 MsgBox.ShowDialog(this);
             }

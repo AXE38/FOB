@@ -3,9 +3,11 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace Client
 {
@@ -44,6 +46,28 @@ namespace Client
             e.Column.Header = getColumnName(sender as DataGrid, e.PropertyName);
         }
 
+        private void Populate_Grids()
+        {
+            string entity_type = "CLIENT";
+            string[] columns = { "id", "fullname", "pass", "phone" };
+
+            var res = Handler.SelectItems(entity_type, columns, offset: 0, fetch: 200);
+
+            if (res.state == "200")
+            {
+                foreach (XmlNode n in (XmlNodeList)res.result)
+                {
+                    DB_Clients.Add(new DB_Client()
+                    {
+                        id = Convert.ToInt32(n["id"]?.InnerText),
+                        fullname = n["fullname"]?.InnerText,
+                        pass = n["pass"]?.InnerText,
+                        phone = n["phone"]?.InnerText
+                    });
+                }
+            }
+        }
+
         private void Init()
         {
             Handler.Init_DB_result();
@@ -51,19 +75,26 @@ namespace Client
             DB_Creds = new ObservableCollection<DB_Cred>();
             gCL.Items = DB_Clients;
             gCL.AutoGeneratingColumn += GCL_AutoGeneratingColumn;
+            gCL.SelectionChanged += GCL_SelectionChanged;
 
             G_CR.Items = DB_Creds;
             G_CR.AutoGeneratingColumn += G_CR_AutoGeneratingColumn;
 
             TC1.SelectionChanged += TC1_SelectionChanged;
 
-            DB_Clients.Add(new DB_Client()
+            Populate_Grids();
+            gCL.SelectedIndex = 0;
+        }
+
+        private void GCL_SelectionChanged(object? sender, SelectionChangedEventArgs e)
+        {
+            if (gCL.SelectedItem == null)
             {
-                id = 1,
-                fullname = "123",
-                pass = "1245",
-                phone = "567890"
-            });
+                miEdit.IsEnabled = false;
+            } else
+            {
+                miEdit.IsEnabled = true;
+            }
         }
 
         private void TC1_SelectionChanged(object? sender, SelectionChangedEventArgs e)
