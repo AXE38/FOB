@@ -22,7 +22,7 @@
 		</Menu>
 		<TabControl Name="TC1" >
 			<TabItem Header="Клиенты" Name="Tab1">
-				<DataGrid Name="gCL" AutoGenerateColumns="True" Items="{Binding DB_Clients}" IsReadOnly="True">
+				<DataGrid Name="G_CL" AutoGenerateColumns="True" Items="{Binding DB_Clients}" IsReadOnly="True">
 				</DataGrid>
 			</TabItem>
 			<TabItem Header="Кредиты" Name="Tab2">
