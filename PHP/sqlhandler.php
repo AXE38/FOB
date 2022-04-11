@@ -13,7 +13,6 @@
 					   'UID' => $UID,
 					   'PWD' => $PWD,
 					   'CharacterSet' => 'UTF-8');
-			var_dump($this->sConn);
 		}
 		function sql_exec($sql, $params = '') {
 			$conn = sqlsrv_connect($this->sName, $this->sConn);
