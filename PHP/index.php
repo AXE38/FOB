@@ -137,14 +137,11 @@
 	//echo(header('content-type: text'));
 	libxml_clear_errors();
 	libxml_use_internal_errors(TRUE);
-	if (!isset($_POST['request']) and !isset($_GET['test'])) {
+	if (!isset($_POST['request'])) {
 		echo getError(-1);
 		exit;
 	} elseif (isset($_POST['request'])) {
 		$request = $_POST['request'];
-	} elseif (isset($_GET['test'])) {
-		$request = '
-		<root><type>UPDATE</type><entity_type>Account</entity_type><entity><collection_id>9</collection_id><num>12344/1</num><iss_s>2222</iss_s><s>22221</s><create_date>2022-04-11 15:33:47</create_date></entity><where><condition><column>id</column><operator>=</operator><value>17</value></condition></where><token>c871aeca2aaac5ff2a22f5d0109cd97210c4aaa47b537f52a0d7bb640fe09e74</token></root>';
 	}
 	
 	$type = null;
