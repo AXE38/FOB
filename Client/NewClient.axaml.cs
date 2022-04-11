@@ -1,8 +1,10 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using System;
+using System.Diagnostics;
 
 namespace Client
 {
@@ -31,21 +33,10 @@ namespace Client
         private void Validate(object sender, RoutedEventArgs e)
         {
             var p_info = (sender as Control).Name;
+            Debug.Print(p_info);
             if (p_info == this.Name)
             {
                 InitializeComponent();
-                tbFullname.TextInput += (a, e) =>
-                {
-                    Validate(tbFullname, new RoutedEventArgs());
-                };
-                tbPass.TextInput += (a, e) =>
-                {
-                    Validate(tbPass, new RoutedEventArgs());
-                };
-                tbPhone.TextInput += (a, e) =>
-                {
-                    Validate(tbPhone, new RoutedEventArgs());
-                };
                 if (client == null)
                 {
                     this.Title = "Добавить";
@@ -66,15 +57,6 @@ namespace Client
             else if (p_info == "CANCEL")
             {
                 this.Close();
-            } else if (p_info == "tbFullname")
-            {
-                client.fullname = this.tbFullname.Text;
-            } else if (p_info == "tbPass")
-            {
-                client.pass = this.tbPass.Text;
-            } else if (p_info == "tbPhone")
-            {
-                client.phone = this.tbPhone.Text;
             }
             e.Handled = true;
         }
@@ -83,10 +65,18 @@ namespace Client
         {
             if (!isEdit)
             {
+                client.fullname = this.tbFullname.Text;
+                client.pass = this.tbPass.Text;
+                client.phone = this.tbPhone.Text;
                 Handler.AddItem("Client", this.client);
+                this.Close();
             } else
             {
+                client.fullname = this.tbFullname.Text;
+                client.pass = this.tbPass.Text;
+                client.phone = this.tbPhone.Text;
                 Handler.EditItem("Client", this.client);
+                this.Close();
             }
         }
     }

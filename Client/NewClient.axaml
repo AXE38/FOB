@@ -6,7 +6,8 @@
         x:Class="Client.NewClient"
 		CanResize="False"
         Title="Добавить клиента"
-		SizeToContent="WidthAndHeight">
+		SizeToContent="WidthAndHeight"
+		Name="fNewClient">
 	<Grid ColumnDefinitions="150,400" RowDefinitions="Auto,3,Auto,3,Auto,3,Auto,3"  Margin="4">
 		<Label   Grid.Row="0" Grid.Column="0" VerticalAlignment="Center">ФИО</Label>
 		<TextBox Grid.Row="0" Grid.Column="1" Watermark="ФИО" Name="tbFullname"></TextBox>

@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
@@ -13,12 +14,10 @@ namespace Client
     internal class Handler
     {
         public static List<DB_Result> db_results = new List<DB_Result>();
+        public static string Token { get; set; } = "";
+
         private static readonly string API_HOST = "https://axeit.ru/api/1_dev/";
         private static readonly HttpClient client = new HttpClient();
-        public static DB_Result DeleteItem(string entity_type, long id )
-        {
-            return new DB_Result();
-        }
 
         public static void Init_DB_result()
         {
@@ -43,12 +42,144 @@ namespace Client
 
         public static DB_Result AddItem(string entity_type, object obj)
         {
-            return new DB_Result();
+            XmlDocument doc = new XmlDocument();
+            XmlNode node0 = doc.CreateElement("root");
+            doc.AppendChild(node0);
+            XmlNode node1 = doc.CreateElement("type");
+            node1.InnerText = "INSERT";
+            node0.AppendChild(node1);
+            node1 = doc.CreateElement("entity_type");
+            node1.InnerText = entity_type;
+            node0.AppendChild(node1);
+            node1 = doc.CreateElement("entity");
+            XmlNode node2;
+
+            var t = obj.GetType();
+            foreach (var info in t.GetProperties())
+            {
+                if (info.Name == "id" || info.Name == "client_name")
+                {
+                    continue;
+                }
+                node2 = doc.CreateElement(info.Name);
+                if (info.PropertyType == typeof(DateTime))
+                {
+                    node2.InnerText = ((DateTime)info.GetValue(obj)).ToString("yyyy-MM-dd HH:mm:ss");
+                } else
+                {
+                    node2.InnerText = info.GetValue(obj)?.ToString();
+                }
+                node1.AppendChild(node2);
+            }
+            node0.AppendChild(node1);
+            node1 = doc.CreateElement("token");
+            node1.InnerText = Token;
+            node0.AppendChild(node1);
+            Debug.Print(doc.OuterXml);
+            string res = Http_request(doc.OuterXml);
+            XmlDocument result = new XmlDocument();
+            result.LoadXml(res);
+
+            var state = result.SelectSingleNode("/root/state").InnerText;
+            return new DB_Result(state);
         }
 
         public static DB_Result EditItem(string entity_type, object obj)
         {
-            return new DB_Result();
+            XmlDocument doc = new XmlDocument();
+            XmlNode node0 = doc.CreateElement("root");
+            doc.AppendChild(node0);
+            XmlNode node1 = doc.CreateElement("type");
+            node1.InnerText = "UPDATE";
+            node0.AppendChild(node1);
+            node1 = doc.CreateElement("entity_type");
+            node1.InnerText = entity_type;
+            node0.AppendChild(node1);
+            node1 = doc.CreateElement("entity");
+            XmlNode node2;
+
+            var t = obj.GetType();
+            long? id = null;
+            foreach (var info in t.GetProperties())
+            {
+                if (info.Name == "id" || info.Name == "client_name")
+                {
+                    if (info.Name == "id")
+                        id = (long?)info.GetValue(obj);
+                    continue;
+                }
+                node2 = doc.CreateElement(info.Name);
+                if (info.PropertyType == typeof(DateTime))
+                {
+                    node2.InnerText = ((DateTime)info.GetValue(obj)).ToString("yyyy-MM-dd HH:mm:ss");
+                }
+                else
+                {
+                    node2.InnerText = info.GetValue(obj)?.ToString();
+                }
+                node1.AppendChild(node2);
+            }
+            node0.AppendChild(node1);
+            node1 = doc.CreateElement("where");
+            node2 = doc.CreateElement("condition");
+            XmlNode node3 = doc.CreateElement("column");
+            node3.InnerText = "id";
+            node2.AppendChild(node3);
+            node3 = doc.CreateElement("operator");
+            node3.InnerText = "=";
+            node2.AppendChild(node3);
+            node3 = doc.CreateElement("value");
+            node3.InnerText = id.ToString();
+            node2.AppendChild(node3);
+            node1.AppendChild(node2);
+            node0.AppendChild(node1);
+            node1 = doc.CreateElement("token");
+            node1.InnerText = Token;
+            node0.AppendChild(node1);
+            Debug.Print(doc.OuterXml);
+            string res = Http_request(doc.OuterXml);
+            XmlDocument result = new XmlDocument();
+            result.LoadXml(res);
+
+            var state = result.SelectSingleNode("/root/state").InnerText;
+            return new DB_Result(state);
+        }
+
+        public static DB_Result DeleteItem(string entity_type, long? id)
+        {
+            XmlDocument doc = new XmlDocument();
+            XmlNode node0 = doc.CreateElement("root");
+            doc.AppendChild(node0);
+            XmlNode node1 = doc.CreateElement("type");
+            node1.InnerText = "DELETE";
+            node0.AppendChild(node1);
+            node1 = doc.CreateElement("entity_type");
+            node1.InnerText = entity_type;
+            node0.AppendChild(node1);
+            node1 = doc.CreateElement("where");
+            XmlNode node2 = doc.CreateElement("condition");
+            XmlNode node3 = doc.CreateElement("column");
+            node3.InnerText = "id";
+            node2.AppendChild(node3);
+            node3 = doc.CreateElement("operator");
+            node3.InnerText = "=";
+            node2.AppendChild(node3);
+            node3 = doc.CreateElement("value");
+            node3.InnerText = id.ToString();
+            node2.AppendChild(node3);
+            node1.AppendChild(node2);
+            node0.AppendChild(node1);
+            node1 = doc.CreateElement("token");
+            node1.InnerText = Token;
+            node0.AppendChild(node1);
+            Debug.Print(doc.OuterXml);
+            string res = Http_request(doc.OuterXml);
+            XmlDocument result = new XmlDocument();
+            result.LoadXml(res);
+
+            var state = result.SelectSingleNode("/root/state").InnerText;
+
+            return new DB_Result(state);
         }
 
         public static DB_Result SelectItems(string entity_type, string[] columns, List<DB_Where>? where = null, int? offset = null, int? fetch = null)
@@ -88,6 +219,9 @@ namespace Client
                     node1.AppendChild(node2);
                 }
             }
+            node0.AppendChild(node1);
+            node1 = doc.CreateElement("token");
+            node1.InnerText = Token;
             node0.AppendChild(node1);
 
             string res = Http_request(doc.OuterXml);
@@ -190,12 +324,12 @@ namespace Client
 
     public class DB_Cred
     {
-        public long id { get; set; }
-        public long collection_id { get; set; }
-        public string client_name { get; set; }
-        public string num { get; set; }
-        public double iss_s { get; set; }
-        public double s { get; set; }
+        public long? id { get; set; }
+        public long? collection_id { get; set; }
+        public string? client_name { get; set; }
+        public string? num { get; set; }
+        public double? iss_s { get; set; }
+        public double? s { get; set; }
         public DateTime create_date { get; set; }
 
         public DB_Cred()

@@ -37,6 +37,21 @@ namespace Client
             if (p_info == this.Name)
             {
                 InitializeComponent();
+                login.KeyUp += (o, e) =>
+                {
+                    if (e.Key == Avalonia.Input.Key.Enter)
+                    {
+                        Validate(OK, new RoutedEventArgs());
+                    }
+                };
+                password.KeyUp += (o, e) =>
+                {
+                    if (e.Key == Avalonia.Input.Key.Enter)
+                    {
+                        Validate(OK, new RoutedEventArgs());
+                    }
+                };
+                login.AttachedToVisualTree += (s, e) => login.Focus();
 
             } else if (p_info == "OK")
             {   
@@ -59,7 +74,7 @@ namespace Client
             }
             else
             {
-                var MsgBox = new MsgBox(result.msg);
+                var MsgBox = new MsgBox("Неправильный логин или пароль");
                 MsgBox.WindowStartupLocation = WindowStartupLocation.CenterOwner;
                 MsgBox.ShowDialog(this);
             }

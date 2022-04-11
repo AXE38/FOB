@@ -1,0 +1,29 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="500"
+        x:Class="Client.NewAccount"
+		CanResize="False"
+        Title="Добавить клиента"
+		SizeToContent="WidthAndHeight">
+	<Grid ColumnDefinitions="150,400" RowDefinitions="Auto,3,Auto,3,Auto,3,Auto,3,Auto,3,Auto,3,Auto,3"  Margin="4">
+		<Label   Grid.Row="0" Grid.Column="0" VerticalAlignment="Center">Клиент</Label>
+		<TextBox Grid.Row="0" Grid.Column="1" Watermark="Клиент" Name="tbClientName" IsReadOnly="True"></TextBox>
+		<Label   Grid.Row="2" Grid.Column="0" VerticalAlignment="Center">Номер договора</Label>
+		<TextBox Grid.Row="2" Grid.Column="1" Watermark="Номер договора" Name="tbNum"></TextBox>
+		<Label   Grid.Row="4" Grid.Column="0" VerticalAlignment="Center">Сумма выдачи</Label>
+		<TextBox Grid.Row="4" Grid.Column="1" Watermark="Сумма выдачи" Name="tbIssS"></TextBox>
+		<Label   Grid.Row="6" Grid.Column="0" VerticalAlignment="Center">Сумма</Label>
+		<TextBox Grid.Row="6" Grid.Column="1" Watermark="Сумма" Name="tbS"></TextBox>
+		<Label   Grid.Row="8" Grid.Column="0" VerticalAlignment="Center">Дата выдачи</Label>
+
+		<DatePicker Grid.Row="8" Grid.Column="1" SelectedDate="2022-01-23" MinYear="2000-01-01" MaxYear="2099-01-01" Name="dpCreateDate"></DatePicker>
+		<Label   Grid.Row="10" Grid.Column="0" VerticalAlignment="Center">Время выдачи</Label>
+		<TimePicker Grid.Row="10" Grid.Column="1" ClockIdentifier="24HourClock" SelectedTime="00:00" Name="tpCreateDate"></TimePicker>
+		<WrapPanel Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Right">
+			<Button Name="OK" Click="Validate">Ок</Button>
+			<Button Name="CANCEL" Click="Validate">Отмена</Button>
+		</WrapPanel>
+	</Grid>
+</Window>
